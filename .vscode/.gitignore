@@ -1,0 +1,12 @@
+*/__pycache__/*
+*.DS_Store
+*.env
+*.pyc
+media/
+celerybeat-schedule
+celerybeat.pid
+data
+logs
+patch
+venv
+profiles/*

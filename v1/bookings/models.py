@@ -13,14 +13,18 @@ from v1.bookings import constants as booking_consts
 
 class TimeSlot(AbstractBaseModel):
     """
-    Model to store Service providers.
+    Model to store Time Slot.
 
     Attribs:
         provider(obj)       : Provider of a Timeslot.
+        customer(obj)       : Customer of a Timeslot.
         date(sate)          : Date of Timeslot.
         starting_time(time) : Timeslot start time.
         ending_time(time)   : Timeslot end time.
         is_booked(bool)     : Is this Timslot booked or not.
+        duration(duration)  : Duration of the total TimeSlot.
+        status(int)         : status of the Time Slot.
+
 
     Inherited Attribs:
         creator(obj): Creator user of the object.
@@ -54,11 +58,8 @@ class TimeSlotServices(AbstractBaseModel):
     Model to store Service providers.
 
     Attribs:
-        provider(obj)       : Provider of a Timeslot.
-        date(sate)          : Date of Timeslot.
-        starting_time(time) : Timeslot start time.
-        ending_time(time)   : Timeslot end time.
-        is_booked(bool)     : Is this Timslot booked or not.
+        timeslot(obj)       : Timeslot of the timeslotservice.
+        service(obj)        : Service of the timeslotservice.
 
     Inherited Attribs:
         creator(obj): Creator user of the object.
@@ -67,7 +68,7 @@ class TimeSlotServices(AbstractBaseModel):
         updated_on(datetime): Last updated date of the object.
     """
     timeslot = models.ForeignKey(
-        TimeSlot, on_delete=models.CASCADE, related_name='timeslot',
+        TimeSlot, on_delete=models.CASCADE, related_name='timeslotservices',
         verbose_name=_('Timeslot'), null=False, blank=False)
     service = models.ForeignKey(
         service_models.Service, on_delete=models.CASCADE,

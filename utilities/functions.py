@@ -79,14 +79,6 @@ def validate_phone(number):
         return None
 
 
-# def list_to_sentence(word_list):
-#     """Function to convert list to sentence."""
-#     word_list = list(map(str, word_list))
-#     if not word_list[:-1]:
-#         return ' '.join(word_list)
-#     return "%s %s %s" % (', '.join(word_list[:-1]), _('and'), word_list[-1])
-
-
 def hash_file(file):
     """
     Function to compute the hash of a file
@@ -103,64 +95,6 @@ def hash_file(file):
     for chunk in file.chunks():
         md5.update(chunk)
     return md5.hexdigest()
-
-
-# def serialize_promises(data):
-#     """
-#     Function to serialize complex data structures with promises.
-#     """
-#     if isinstance(data, list):
-#         return [serialize_promises(i) for i in data]
-#     if isinstance(data, tuple):
-#         return (serialize_promises(i) for i in data)
-#     if isinstance(data, dict):
-#         return {serialize_promises(k): serialize_promises(v) for k, v in data.items()}
-#     if isinstance(data, Promise):
-#         return str(data)
-#     return data
-
-
-# def read_date(time_string: str) -> datetime.date:
-#     """
-#     Reads date from most common date string formats.
-#     Note :  It does not support the middle-endian format of USA
-#     """
-#     time_string = " ".join(time_string.replace(',', ' ').split()).title()
-#     formats = [
-#         '%d-%m-%Y', '%d/%m/%Y', '%d %m %Y', '%d.%m.%Y',  # 18-12-2020
-#         '%Y-%m-%d', '%Y/%m/%d', '%Y %m %d', '%Y.%m.%d',  # 2020-12-18
-#         '%b %d %Y', '%B %d %Y',  # Dec 18 2022 or December 18 2020
-#         '%d %b %Y', '%d %B %Y',  # 18 Dec 2022 or 18 December 2020
-#         '%d-%m-%y', '%d/%m/%y', '%d %m %y', '%d.%m.%y'  # 18-12-20
-#         '%y/%m/%d', '%y-%m-%d', '%y %m %d', '%y.%m.%d',  # 20-12-18
-#     ]
-#     for fmt in formats:
-#         try:
-#             date = datetime.strptime(time_string, fmt).date()
-#             return date
-#         except ValueError:
-#             continue
-#     else:
-#         raise ValueError('Not a valid date.')
-
-
-# def percentage(value, total):
-#     """
-#     Calculates the percentage without zerodivision error.
-#     If total is 0. returns 0 without raising error.
-#     Args:
-#         value: Value to convert to percentage
-#         total: Total value
-
-#     Returns:
-#         percentage: Percentage
-#     """
-#     try:
-#         if not value or not total:
-#             return 0.0
-#         return round((float(value) / float(total)) * 100, 2)
-#     except ZeroDivisionError:
-#         return 0.0
 
 
 def get_ip_from_request(request):
@@ -181,32 +115,6 @@ def get_location_from_ip(ip):
     location_info = [location_data.get(
         i) for i in ['city', 'region', 'country_name'] if location_data.get(i, None)]
     return ', '.join(location_info)
-
-
-def device_name_from_request(request):
-    """
-    Function to get the device details from the request
-    """
-    user_agent_string = request.headers['User-Agent']
-    user_agent = user_agent_parser.Parse(user_agent_string)
-    brand = user_agent['device'].get('brand', 'Unknown')
-    model = user_agent['device'].get('model', 'Device')
-    device = ' '.join(i for i in [brand, model] if i)
-    family = user_agent['user_agent']['family']
-    os = user_agent['os']['family']
-    browser_device = ' on '.join(i for i in [family, device] if i)
-    device_string = ' running '.join(i for i in [browser_device, os] if i)
-    return device_string
-
-
-# def client_details(request):
-#     """
-#     Get IP, Location and device of requester
-#     """
-#     ip = get_ip_from_request(request)
-#     location = get_location_from_ip(ip)
-#     device = device_name_from_request(request)
-#     return ip, location, device
 
 
 def encode_list(id_list):
